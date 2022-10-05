@@ -1,0 +1,13 @@
+\chapter{Conclusions}
+Starting with the ESP32 board and then porting in simulation on Linux FreeRTOS, the goal of implementing a VPN Client for FreeRTOS was met.
+Several issues arose during the project's development. The first step was to research what a Virtual Private Network is, as well as its functions and how to use it.
+\\Following some evaluations, WireGuard was selected as the protocol to create an encrypted communication that ensures confidentiality, integrity, and authentication.
+The ESP32 was chosen as the client's development board because it provides all of the required utilities at a low cost.
+The Espressif's official IoT Development Framework (ESP-IDF) functionalities were studied in order to use them on the board.
+\\While browsing the internet, examples of previously created WireGuard implementations on IoT devices were discovered and used as a starting point for the project.
+To simulate a simple packet transmission, a TCP/IP port on a Linux machine was opened, and the ESP32 was used as the sender.
+Following the successful communication, the WireGuard module was added to ensure a secure channel.
+To ensure that the packets were encrypted, an Internet traffic analyser was used.
+So, after the previously described implementation, it was easier to understand how the WireGuard module works and how to configure it. This enabled it to be ported in a more general scenario using the FreeRTOS simulator for Linux.
+\\All of the work done allowed the establishment of a raw TCP/IP communication, but a more complex application exploiting the full potential of a VPN could be developed.
+Other improvements must be made before this solution can be used in a real-world scenario.

@@ -1,0 +1,18 @@
+\chapter{Introduction}
+
+The Internet of Things (IoT) refers to the billions of physical devices connected to the internet around the world, all of which collect and share data. For this reason people should consider using more sophisticated security to ensure the data they collect is secure. Nowadays, everyone can control lights from outside the house, control thermostats with their phones,
+and order from online stores simply by speaking out loud. One thing that may go unnoticed is that all of this data is very personal and unique to the individual. These details may appear insignificant on their own.
+The reality is that these various devices are logging information on shopping habits, location, and even passing conversations and these devices can be vulnerable to all sorts of weaknesses.
+The issue arises when people intercept that data, make a copy of it, and then use it for their own purposes.\\
+That is where the VPN comes in.\\
+A VPN is a Virtual Private Network that encrypts all data sent between a device and a server. Furthermore, it obscures the device's IP address, making it impossible to determine from where the data was sent. For this reason, many companies that allow employees to work remotely will require them to connect to the company's business network via a VPN; sensitive data always takes a secure route to or from the local area network.
+If someone decides to use this service to protect their data, it is possible to search a VPN provider, but this solution has a cost, even if it is often reasonable. On the other side, a free implementation will undoubtedly have less support and may be more difficult to use for the average user.\\
+Furthermore, it is difficult to implement a VPN on an IoT device because they require a large amount of computational resources. WireGuard as a VPN is becoming increasingly popular because it is simple, employs cutting-edge cryptography, and is also free and open source.
+
+The goal of the project described in this report is to implement a VPN client for FreeRTOS in order to establish a secure communication channel between a client and a server that allows for confidentiality, integrity, and authentication.\\ The choice settled on WireGuard protocol, because of its lightness and simplicity.\\
+The ESP32 was chosen as development platform because modules are affordable and provide all of the required functionalities, particularly the WiFi module, the LwIP network stack and the true random number generator. Moreover the company of the ESP32, Espressif, offers a development framework called ESP-IDF which provides a slightly modified version of FreeRTOS.
+
+This paper is divided into several chapters. The second one provides a brief overview of all the topics required to follow the project's development.
+The third chapter provides a general overview of project implementation for the ESP32, while the fourth exposes all technical details. The fifth chapter focuses on a similar development, but in a more general scenario, using the FreeRTOS simulator for Linux.
+The sixth chapter summarises all of the findings of the research, as well as the issues encountered and potential future projects. The report is concluded in the seventh chapter.
+Appendix A contains a detailed user manual for executing, step-by-step, the projects that were developed.

@@ -1,0 +1,10 @@
+Alcuni file di queste due cartelle sono in conflitto:
+  /home/work/__POLITO/CyberSec/proj/contrib-2.1.0/ports/unix/port
+  /home/work/__POLITO/CyberSec/proj/contrib-2.1.0/ports/freertos
+a noi serve l'hardware di unix (tapif) e la port a freertos (come sistema operativo)
+
+La lista di cose da implementare per scrivere un device driver LwIP si trova qui:
+  https://lwip.fandom.com/wiki/Writing_a_device_driver
+
+https://www.google.com/search?client=firefox-b-d&q=arch+linux+bridged+tap
+https://wiki.archlinux.org/title/Network_bridge

@@ -1,0 +1,5 @@
+https://lwip.fandom.com/wiki/Using_lwIP_in_a_project
+src/ copied without modifications from lwip-2.1.3/src
+port/ copied from lwip-2.1.3/contrib-2.1.0/ports/freertos
+port/netif/ copied from lwip-2.1.3/contrib-2.1.0/ports/unix/port/netif
+lwipopts.h copiato inizialmente da /home/work/__POLITO/CyberSec/proj/FreeRTOSv202112.00/FreeRTOS/Demo/lwIP_AVR32_UC3/NETWORK/lwip-port/AT32UC3A

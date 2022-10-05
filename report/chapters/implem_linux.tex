@@ -1,0 +1,118 @@
+\chapter{Running the VPN in the FreeRTOS simulator for Linux}
+FreeRTOS already has a port that runs as a native process in Posix systems, known as the Posix simulator. LwIP also has support for running under Linux using virtual network interfaces. In this chapter LwIP is configured to run in FreeRTOS (which is a very common use case with a port already existing) while using a Linux virtual network interface. Finally, the WireGuard module is added.
+
+\section{Build FreeRTOS for Linux (simulator)}
+FreeRTOS supports running as a process inside a Posix system for simulation purposes.\\
+The Posix port implements tasks as pthreads, however only one thread will be running at any time, dictated by the FreeRTOS queue.\\
+Each thread receives Posix signals to simulate interrupts (mainly SIGALARM for the System Tick interrupt), so that execution is periodically passed back to the task queue, which then restarts one of the threads with SIGUSR1.
+See also \href{https://www.freertos.org/FreeRTOS-simulator-for-Linux.html}{(simulator doc)}, or the comments in the port files in \texttt{FreeRTOS/Source/portable/ThirdParty/GCC/Posix/} of the FreeRTOS distribution.
+A simulation port of FreeRTOS for Windows is also available. It was not tested for this project because the limited available networking options meant adding LwIP would have been impractical.
+\\Note that FreeRTOS loses any real time guarantee when ported to Posix, since the latter is not deterministic.
+Scheduling still follows the same criteria that would apply on an embedded system, and operation with a 1 ms system tick is possible on an unloaded laptop CPU. Problems might arise inside virtual machines or on old hardware. Missing some system ticks would not be critical for this project.
+
+
+\section{Adding LwIP on top of FreeRTOS}
+LwIP will not be running on an embedded system, but rather in a simulated environment. The compiler will be a standard gcc for Linux, while the underlying operating system will be FreeRTOS. A Unix TAP virtual network interface will be created to allow LwIP to connect to something outside the FreeRTOS simulator.
+\\This procedure shows how to make LwIP available to FreeRTOS applications such as the blinky example (see \ref{sub:linux_blink} for details and build instructions).
+The expected result of these steps should be similar to the contents of the folder \texttt{Posix\_GCC\_lwip1/} of the supplied code, which was derived from blinky. In that code A TCP connection is established to another device on the network; the same messages that are displayed on \texttt{stdout} by blinky are sent over TCP too.
+
+\subsection{tapif: the network interface}\label{TapInfo}
+A Unix TAP is a virtual network interface that behaves mostly like an Ethernet interface. On the OS end it behaves like any other network interface of the system, it can be configured with the \texttt{ip link / ip addr / ip route} utilities and can have IP addresses. The other end of the TAP is not a driver for a physical interface, rather it can be controlled through the \texttt{open() / close() / read() / write()} system calls by a user application that wishes to emulate a NIC.\\
+TAPs are commonly used by VPN user space clients (not WireGuard) to provide a network interface that appears connected to the VPN local network, and by virtual machines to give network access to guest systems.
+\\To set up a TAP in Linux operating systems see Section \ref{sec:WGRtos}.
+
+\subsection{LwIP setup}
+\begin{enumerate}
+    \item Download the two LwIP packages: both
+    \begin{itemize}
+        \item the sources of LwIP itself \cite{lwip_download}, and
+        \item the contributed code \cite{lwip_contrib_download}, which contains some ports that are going to be used.
+    \end{itemize}
+    \item Write the \texttt{lwipopts.h} file:
+    \begin{itemize}
+        \item thread defines: these should already be defined when starting from a \texttt{lwipopts.h} file with \texttt{NO\_SYS==0}. For a ready-made example see \texttt{Posix\_GCC\_lwip1/lwip/lwipopts.h}. Determining the values needed without knowing the internals of LwIP essentially requires to study the internals, either from the (excellent) documentation or by debugging the program hunting the reasons for trace dumps, which are rarely obvious. If at all possible, start from an \texttt{lwipopts.h} from a similar application.\\
+        All available parameters can be read from the defaults file \texttt{lwip/src/include/lwip/opt.h}.
+        \item Please also add the following lines to \texttt{lwipopts.h}:\\
+        \texttt{\#define MEMP\_NUM\_SYS\_TIMEOUT    6   // because the default is not correct (see\\opt.h line 508)}\\
+        \texttt{\#define PBUF\_POOL\_BUFSIZE        256 // if you wish to use the WireGuard module,\\because of an assumption done in that code, see} \ref{sec:addwglinuxsection}
+    \end{itemize}
+    \item Add the sources of LwIP to the project
+    \begin{itemize}
+        \item mkdir \texttt{lwip}
+        \item copy the \texttt{src/} directory from the LwIP distribution to \texttt{lwip/}
+    \end{itemize}
+    \item Copy the port files
+    \begin{itemize}
+        \item mkdir \texttt{lwip/port/}
+        \item copy the contents of \texttt{ports/freertos} from the LwIP contrib distribution to \texttt{lwip/port/}. These are the \texttt{sys\_arch.c/h} files that implement threads, semaphores, mailboxes and mutexes based on FreeRTOS.
+        \item copy \texttt{ports/unix/port/include/arch/cc.h} from the LwIP contrib distribution to\\\texttt{lwip/port/include/}. This header contains the basic definitions for compatibilitiy with the Linux-native \texttt{gcc} compiler.
+        \item copy \texttt{ports/unix/port/netif/} from the LwIP contrib to \texttt{lwip/port/}. Only \texttt{tapif.c} and \texttt{include/tapif.h} are really necessary.
+        \item remove error handling: comment the call to \texttt{perror()} at \texttt{line 427 in tapif.c}.\\
+        This netif was built for LwIP over straight Linux, but we are running LwIP over FreeRTOS inside Linux. The system tick in the FreeRTOS port for Linux is implemented using a Posix Signal that is generated every millisecond to interrupt the running task and run the scheduler. When the signal is delivered it interrupts any blocking system call, in particular the system call used by tapif to communicate with the Unix TAP returns \texttt{EINTR}. The call can be restarted without special considerations, so the error can be safely ignored.
+    \end{itemize}
+    \item Add the necessary LwIP files to the variables \texttt{SOURCE\_FILES} and \texttt{INCLUDE\_DIRS} in the \texttt{Makefile}. The list was determined by trial and error, building the project and resolving symbols that were missing while linking, and by referencing some examples. Note the use of wildcards in the \texttt{Makefile}:
+    \begin{itemize}
+        \item \texttt{lwip/src/core/*.c}, \texttt{lwip/src/core/ipv4/*.c}: basic LwIP functionality.
+        \item \texttt{lwip/src/api/*.c}: this project uses the BSD socket API, which is the most abstract, so all the files here are needed. A project which only uses the \texttt{RAW} or \texttt{netconn} APIs could shed some size by not building the socket API.
+        \item \texttt{lwip/port/sys\_arch.c}: the FreeRTOS port layer.
+        \item \texttt{lwip/src/netif/ethernet.c} which is almost always used by ethernet-based netifs, and \texttt{lwip/port/netif/tapif.c} which is the outside-facing netif we are going to use.
+        \item Include directories: \texttt{lwip/src/include} for LwIP and \texttt{lwip/port/include} for the port layer (here are \texttt{sys\_arch.h}, \texttt{cc.h} and optionally \texttt{perf.h}). Also include whatever directory contains \texttt{lwipopts.h} (it can be found in folder \texttt{lwip/} in the supplied code, but it could be saved in \texttt{lwip/port/include} for simplicity).
+    \end{itemize}
+    \item Write some basic application code. A finished example derived from the \texttt{Posix\_GCC} FreeRTOS example is given in the \texttt{Posix\_GCC\_lwip1/} folder of the supplied code.\\
+    This example does the following:
+    \begin{itemize}
+        \item in \texttt{main\_blinky()}:
+        \begin{enumerate}
+            \item initialize LwIP with \texttt{tcpip\_init(NULL, NULL);}
+            \item create the outside-facing network interface of the tapif type with \texttt{netif\_add()}
+            \item create a TCP socket (internally to LwIP) with \texttt{socket()}
+        \end{enumerate}
+    
+        \item in a separate task function called \texttt{prvTCPConnectorTask}(), run after starting the scheduler:
+        \begin{enumerate}
+            \item establish the TCP connection with an external host on port 3333 with \texttt{connect()}
+			\item in general, run any operation that communicates through a netif \textit{only after starting the scheduler}, or else the netif will not be functional, making the operation hang or fail.
+        \end{enumerate}
+    \end{itemize}
+    Use Netcat to listen on TCP port 3333 on the computer which runs the simulator. Use the command \texttt{nc -v -l -p 3333}.
+\end{enumerate}
+
+\section{Adding the WireGuard module to an LwIP project}\label{sec:addwglinuxsection}
+This section will guide the reader through the process of adding the WireGuard module to the basic FreeRTOS + LwIP setup obtained in the previous section.\\
+The end result of this procedure should be similar to the contents of the folder \texttt{Posix\_GCC\_lwip2\_wg/} of the supplied code.
+\begin{enumerate}
+    \item Download the wireguard-lwip module either from \cite{wg_smartalock} (original, preferred), \cite{wg_trombik} (ESP32 port, identical clone of (1)), and copy it to a folder in the project (see \texttt{wireguard-lwip} in the supplied project).
+    \item Ensure that \texttt{PBUF\_POOL\_BUFSIZE} is defined to be more than 134 in \texttt{lwipopts.h}. This is needed because the WireGuard module expects to get the handshake response (92 bytes), received from the remote peer, inside a single pbuf. The pbuf pool contains space for a number of pbufs, the data buffers of LwIP. When a packet is too big for one pbuf, a singly linked list of pbufs is created to hold the whole message. This quantity of data also has 42 bytes of overhead for Ethernet, IP and UDP, totalling to 134 bytes.
+    \item Create a platform support file (\texttt{wireguard-lwip/src/wireguard-platform\_unix\_freertos.c} in the project code). Implement in this file four functions needed by the WireGuard module. Note that you can just use the example \texttt{wireguard-lwip/src/example/wireguard\_platform.c} as a basic, workable but insecure version.
+    The four functions are:
+    \begin{itemize}
+        \item \texttt{wireguard\_random\_bytes()} should be a strong random number generator. Note that \textbf{the default example is a weak pseudo random number generator, unsuitable for real-world usage}. On a Linux platform it could be implemented to read /dev/random, however this involves system calls which are easily broken by the FreeRTOS simulator, as was shown for the tapif interface in the last chapter. In this case the \texttt{read()} call could be interrupted, making the function return uninitialized values or some predefined value, like zero, which would critically weaken the cryptographic system anyway, unless a more complete solution is developed.
+        \item \texttt{wireguard\_sys\_now()} just returns LwIP's \texttt{sys\_now()} which is a 32 bit unsigned number of milliseconds elapsed from an epoch (in this port the epoch is the start of simulation). Note that this time will wrap around after less than 50 days.
+        \item \texttt{wireguard\_tai64n\_now()} returns the tai64n timestamp (specification: \cite{tai64_timestamp}) used in the WireGuard packets. It is essential that this timer increases for every new packet, otherwise the remote peer will just drop the packets.\\
+        The example platform file implements this function using \texttt{sys\_now()}, which would break the connection after 49 days, until the server is killed and restarted.\\
+        \texttt{wireguard\_tai64n\_now()} was edited to make it return the current time of the underlying Linux OS. The solution uses the \texttt{time()} C library function which, in principle, could generate system calls. However, most of the time no system calls are made, and the function is only used on handshakes, which happen every two minutes by default. For these reasons the probability of an error breaking a \texttt{time()} call is low, and the solution was demonstrated to work well in practice. Using the correct time also avoids the annoyance of restarting the server every time the simulation is killed and restarted, since the timestamp keeps increasing instead of resetting to 01/01/1970.\\
+        \item \texttt{wireguard\_is\_under\_load()} just returns false. This could be made to return true if the system is experiencing load above some threshold. When true, the WireGuard module will send out cookies instead of handshake responses, and only accept handshakes having a non-zero mac2 field, which needs the cookie to be computed (see the DoS mitigation section of the protocol description \cite{wg_protocol_dosprevent}). This mechanism would provide limited protection against overload and DoS attacks, since handshaking is relatively expensive compared to ordinary communication.
+    \end{itemize}
+    \item Initialize the tunnel in the application code, the same way as it is done for the ESP32 platform (see \texttt{wireguard-lwip/src/esp-wireguard.c} from the repository (2) which was also used for the ESP32.).\\
+    The code cannot be copied exactly from the ESP32 port however, because it uses many functions from \texttt{esp-idf}.\\
+    The same operations were adapted into the task \texttt{prvTCPConnectorTask()} and the function \texttt{unix\_wireguard\_setup()}.
+    The operations performed are:
+    \begin{itemize}
+        \item netif\_add() to create an internal netif of the type used by \texttt{wireguard-lwip}. This will be the VPN termination inside the the target device (simulator in this case).
+        \item \texttt{wireguardif\_add\_peer()} to configure the connection to the remote peer
+        \item \texttt{wireguardif\_connect()} to initiate a handshake with the remote peer. This phase can be delayed until the connection is actually needed, as is the standard behavior on the Linux and Windows implementations.
+        \item wait for the tunnel to be open by calling \texttt{wireguardif\_peer\_is\_up()}
+    \end{itemize}
+    It may be useful to also resolve the IP address of the remote peer as in 
+    
+    \texttt{wireguard-lwip/src/esp-wireguard.c}. 
+    
+\end{enumerate}
+
+\section{Failed approach}
+The initial goal of the project was to have a working VPN inside FreeRTOS, so the first networking stack to be considered was FreeRTOS's own FreeRTOS+TCP (the name is somewhat misleading, since it is a complete networking stack). It was not possible for the team to compile a usable demo for Windows or Linux. In particular the virtual network interface based on PCAP was thought to be the culprit.\\
+PCAP is the library used by WireShark \cite{WireShark} to capture traffic from a network interface on many operating systems. It is used to provide access to the network in the FreeRTOS+TCP Linux and Windows simulators, by reading and injecting packets from and to a physical Ethernet interface of the host system.\\
+A PCAP netif also exists for LwIP on Linux (\texttt{ports/unix/port/netif/pcapif.c} in the contrib package), but it was discarded in favour of the tapif because of the experiences with PCAP in FreeRTOS+TCP.
+It was also not clear if PCAP could attach to a virtual TAP interface for experimenting inside a single computer or virtual machine, while the tapif is built for that.
+
+

@@ -1,0 +1,145 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This file defines the style for your report.
+%
+% Just run "sh compiletex.sh" to compile
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt,  english, makeidx, a4paper, titlepage, oneside]{book}
+\usepackage{babel}
+\usepackage{fancyhdr}
+\usepackage{makeidx}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newenvironment{listato}{\footnotesize}{\normalsize }
+
+\textwidth 15.5cm
+\textheight 23cm
+\topmargin -1cm
+\oddsidemargin -0.5cm
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{}
+\chead{Cybersecurity for Embedded Systems}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\rhead{\thepage}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage[
+    backend=biber,
+    sorting=none
+    ]{biblatex}
+\addbibresource{Biblio.bib}
+% TexStudio biblatex setup instructions:
+%   https://tex.stackexchange.com/questions/153647/biblatex-biber-and-latex-citations-undefined
+% biblatex basics:
+%   https://it.overleaf.com/learn/latex/Bibliography_management_with_biblatex
+
+\titleformat{\chapter}[display]
+{\normalfont\Large\filcenter\sffamily}
+{\titlerule[0.5pt]%
+\vspace{1pt}
+\titlerule
+\vspace{1pc}
+\LARGE\MakeUppercase{\chaptertitlename} \thechapter
+}
+{1pc}
+{\titlerule
+\vspace{1pc}
+\Huge}
+
+\makeindex
+
+\begin{document}
+
+\frontmatter
+\begin{titlepage}
+\vspace{0cm}
+\centerline{
+\includegraphics[width=6cm]{./logopolitonuovo}} 
+\vspace{0.5cm}
+\centerline{\LARGE Politecnico di Torino}
+\vspace{2.5cm}
+\centerline{\huge Cybersecurity for Embedded Systems}
+\vspace{0.25cm}
+\centerline{\huge 01UDNOV}
+\vspace{1cm}
+\centerline{\Large Master's Degree in Computer Engineering}
+\vspace{2.5cm}
+\centerline{\Huge Implementation of a VPN client for FreeRTOS}
+\bigskip
+\centerline{\huge Project Report}
+\vspace{2cm}
+\vfill
+\begin{minipage}{6.7 cm} % modify this width in order to keep everything on the same line
+\Large{Candidates:\\
+Lorenzo Chiola (287911)\\
+Simone Pistilli (287607)\\
+Francesco Spagnoletti (291079)\\
+Lucia Vencato (292614)}
+\end{minipage}
+\hfill
+\begin{minipage}{4.4cm}
+\Large{Referents: \\
+Prof. Paolo Prinetto\\
+Dr. Matteo Fornero\\
+Dr. Vahid Eftekhari}
+\end{minipage}
+\end{titlepage}
+
+\tableofcontents
+\listoffigures % REMOVE THIS IF THERE ARE NO PICTURES
+%\listoftables % REMOVE THIS IF THERE ARE NO TABLES
+
+\mainmatter
+    
+% HERE IS WHERE YOU INCLUDE YOUR CHAPTERS
+%\input{stuff/simone_background}
+%\input{stuff/simone_overview}
+
+\input{chapters/abstract.tex}
+%\input{chapters/chap.tex}
+\input{chapters/introduction.tex}
+\input{chapters/background.tex}
+\input{chapters/overview.tex}
+\input{chapters/implem_esp32.tex}
+\input{chapters/implem_linux.tex}
+\input{chapters/results.tex}
+\input{chapters/conclusions.tex}
+%\input{chapters/references.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+% HERE IS WHERE YOU INCLUDE YOUR APPENDICES (IF ANY)
+
+\appendix
+\input{appendices/usermanual.tex}
+
+
+\printbibliography
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

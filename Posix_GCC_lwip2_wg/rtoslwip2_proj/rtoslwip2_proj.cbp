@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="rtoslwip2_proj" />
+		<Option makefile_is_custom="1" />
+		<Option execution_dir="/home/work/__POLITO/CyberSec/proj/FreeRTOSv202112.00/FreeRTOS/Demo/Posix_GCC_lwip2_wg/" />
+		<Option pch_mode="2" />
+		<Option compiler="null" />
+		<Option virtualFolders="wireguard/;main/;lwip/src/include/;lwip/src/core/;lwip/port/netif/;lwip/port/;lwip/src/api/;lwip/src/netif/;lwip/" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../build/posix_demo" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command="$make -f $makefile PROFILE=1" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile" />
+					<SilentBuild command="$make -f $makefile PROFILE=1 &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/rtoslwip1_proj" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<MakeCommands>
+					<Build command="$make -f $makefile" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile clean" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile" />
+					<SilentBuild command="$make -f $makefile &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="../../../Source/portable/ThirdParty/GCC/Posix/port.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../Source/portable/ThirdParty/GCC/Posix/portmacro.h" />
+		<Unit filename="../FreeRTOSConfig.h">
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../Makefile">
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../Readme.md">
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../TODO.txt">
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../code_coverage_additions.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../console.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../console.h">
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../lwip/lwipopts.h">
+			<Option virtualFolder="lwip/" />
+		</Unit>
+		<Unit filename="../lwip/note_lwip.txt">
+			<Option virtualFolder="lwip/" />
+		</Unit>
+		<Unit filename="../lwip/port/include/arch/cc.h">
+			<Option virtualFolder="lwip/port/" />
+		</Unit>
+		<Unit filename="../lwip/port/include/arch/sys_arch.h">
+			<Option virtualFolder="lwip/port/" />
+		</Unit>
+		<Unit filename="../lwip/port/include/netif/fifo.h">
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/include/netif/list.h">
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/include/netif/pcapif.h">
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/include/netif/sio.h">
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/include/netif/tapif.h">
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/netif/fifo.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/netif/list.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/netif/pcapif.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/netif/sio.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/netif/tapif.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/port/netif/" />
+		</Unit>
+		<Unit filename="../lwip/port/perf.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/port/" />
+		</Unit>
+		<Unit filename="../lwip/port/sys_arch.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/port/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/api_lib.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/api_msg.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/err.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/if_api.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/netbuf.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/netdb.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/netifapi.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/sockets.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/api/tcpip.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/api/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/altcp.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/altcp_alloc.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/altcp_tcp.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/def.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/dns.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/inet_chksum.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/init.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/ip.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/mem.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/memp.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/netif.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/pbuf.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/raw.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/stats.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/sys.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/tcp.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/tcp_in.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/tcp_out.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/timeouts.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/core/udp.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/core/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/altcp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/altcp_tcp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/altcp_tls.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/api.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/arch.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/autoip.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/debug.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/def.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/dhcp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/dhcp6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/dns.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/err.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/errno.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/etharp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ethip6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/icmp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/icmp6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/if_api.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/igmp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/inet.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/inet_chksum.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/init.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip4.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip4_addr.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip4_frag.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip6_addr.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip6_frag.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip6_zone.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/ip_addr.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/mem.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/memp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/mld6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/nd6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/netbuf.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/netdb.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/netif.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/netifapi.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/opt.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/pbuf.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/autoip.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/dhcp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/dhcp6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/dns.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/etharp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/ethernet.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/iana.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/icmp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/icmp6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/ieee.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/igmp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/ip.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/ip4.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/ip6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/mld6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/nd6.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/tcp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/prot/udp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/raw.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/sio.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/snmp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/sockets.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/stats.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/sys.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/tcp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/tcpbase.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/tcpip.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/timeouts.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/lwip/udp.h">
+			<Option virtualFolder="lwip/src/include/" />
+		</Unit>
+		<Unit filename="../lwip/src/include/netif/ethernet.h" />
+		<Unit filename="../lwip/src/netif/FILES">
+			<Option virtualFolder="lwip/src/netif/" />
+		</Unit>
+		<Unit filename="../lwip/src/netif/ethernet.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="lwip/src/netif/" />
+		</Unit>
+		<Unit filename="../main.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../main_blinky.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../main_full.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../run-time-stats-utils.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../tapif_create.sh" />
+		<Unit filename="../trcConfig.h">
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../trcSnapshotConfig.h">
+			<Option virtualFolder="main/" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/crypto.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/crypto.h" />
+		<Unit filename="../wireguard-lwip/src/crypto/refc/blake2s.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/crypto/refc/blake2s.h" />
+		<Unit filename="../wireguard-lwip/src/crypto/refc/chacha20.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/crypto/refc/chacha20.h" />
+		<Unit filename="../wireguard-lwip/src/crypto/refc/chacha20poly1305.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/crypto/refc/chacha20poly1305.h" />
+		<Unit filename="../wireguard-lwip/src/crypto/refc/poly1305-donna-32.h" />
+		<Unit filename="../wireguard-lwip/src/crypto/refc/poly1305-donna.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/crypto/refc/poly1305-donna.h" />
+		<Unit filename="../wireguard-lwip/src/crypto/refc/x25519.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/crypto/refc/x25519.h" />
+		<Unit filename="../wireguard-lwip/src/wireguard-platform.h" />
+		<Unit filename="../wireguard-lwip/src/wireguard-platform_unix_freertos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/wireguard.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/wireguard.h" />
+		<Unit filename="../wireguard-lwip/src/wireguardif.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../wireguard-lwip/src/wireguardif.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
